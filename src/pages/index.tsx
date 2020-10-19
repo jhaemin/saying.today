@@ -1,6 +1,7 @@
 import { prisma } from '@/modules/prisma'
 import style from '@/styles/Home.module.scss'
 import { Saying } from '@prisma/client'
+import { format } from 'date-fns'
 import { GetServerSideProps, NextPage } from 'next'
 
 type HomeProps = {
@@ -25,9 +26,12 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const id =
+    (new Date(format(new Date(), 'yyyy-MM-dd')).getTime() / 86_400_000) % 500
+
   const todaySaying = await prisma.saying.findOne({
     where: {
-      id: 1,
+      id,
     },
   })
 
