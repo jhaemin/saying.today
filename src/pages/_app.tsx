@@ -7,10 +7,13 @@ function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>1일1명언 - 쎄잉 (Saying)</title>
+        <meta name="description" content="1일 1명언으로 의미 있는 하루를" />
+        <meta property="og:title" content="1일1명언 - 쎄잉 (Saying)" />
         <meta
-          name="description"
-          content="1일1명언으로 활기찬 하루를 시작해보세요!"
+          property="og:description"
+          content="1일 1명언으로 의미 있는 하루를"
         />
+        <meta property="og:image" content="https://saying.today/og-image.png" />
       </Head>
       <Component {...pageProps} />
     </>
