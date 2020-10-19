@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model saying {
+model Saying {
   id        Int     @id @default(autoincrement())
   paragraph String
   author    String?
