@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'DX';
+  src: url('/fonts/DX/DXPnM-KSCpc-EUC-H.woff2') format('woff2'),
+    url('/fonts/DX/DXPnM-KSCpc-EUC-H.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
