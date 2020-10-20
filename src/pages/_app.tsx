@@ -7,6 +7,8 @@ function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>1일 1명언 - 쎄잉 (Saying)</title>
+        <meta name="apple-mobile-web-app-title" content="쎄잉" />
+        <meta name="application-name" content="쎄잉" />
         <meta name="description" content="1일 1명언으로 의미 있는 하루를" />
         <meta property="og:title" content="1일 1명언 - 쎄잉 (Saying)" />
         <meta
