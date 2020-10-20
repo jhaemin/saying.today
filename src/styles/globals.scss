@@ -1,4 +1,6 @@
 @use './fonts.css';
+@use './package' as *;
+@use './colors.scss';
 
 html,
 body {
@@ -12,7 +14,8 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-  color: #333;
+  color: $text-color;
+  background-color: $foundation;
 }
 
 @media only screen and (min-width: 700px) {

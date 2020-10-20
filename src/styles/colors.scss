@@ -1,0 +1,18 @@
+@use './mixins' as *;
+
+:root {
+  // Colors
+  --st-white: #fff;
+  --st-black: #333;
+
+  // Domains
+  --text-color: var(--st-black);
+  --foundation: var(--st-white);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: var(--st-white);
+    --foundation: var(--st-black);
+  }
+}
