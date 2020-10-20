@@ -1,7 +1,39 @@
 @font-face {
-  font-family: 'DX';
-  src: url('/fonts/DX/DXPnM-KSCpc-EUC-H.woff2') format('woff2'),
-    url('/fonts/DX/DXPnM-KSCpc-EUC-H.woff') format('woff');
+  font-family: 'Arita';
+  src: url('/fonts/Arita/Arita-buri-HairLine_OTF00.woff2') format('woff2'),
+    url('/fonts/Arita/Arita-buri-HairLine_OTF00.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arita';
+  src: url('/fonts/Arita/Arita-buri-Bold_OTF00.woff2') format('woff2'),
+    url('/fonts/Arita/Arita-buri-Bold_OTF00.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arita';
+  src: url('/fonts/Arita/Arita-buri-Light_OTF00.woff2') format('woff2'),
+    url('/fonts/Arita/Arita-buri-Light_OTF00.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arita';
+  src: url('/fonts/Arita/Arita-buri-Medium_OTF00.woff2') format('woff2'),
+    url('/fonts/Arita/Arita-buri-Medium_OTF00.woff') format('woff');
   font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arita';
+  src: url('/fonts/Arita/Arita-buri-SemiBold_OTF00.woff2') format('woff2'),
+    url('/fonts/Arita/Arita-buri-SemiBold_OTF00.woff') format('woff');
+  font-weight: 600;
   font-style: normal;
 }
