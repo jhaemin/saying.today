@@ -16,7 +16,7 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
           {todaySaying?.paragraph}
         </blockquote>
         {todaySaying?.author && (
-          <address className={style.author}>- {todaySaying?.author}</address>
+          <address className={style.author}>— {todaySaying?.author}</address>
         )}
       </div>
     </div>
