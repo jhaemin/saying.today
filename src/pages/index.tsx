@@ -4,6 +4,10 @@ import { Saying } from '@prisma/client'
 import { format } from 'date-fns'
 import { GetServerSideProps, NextPage } from 'next'
 
+function autoRefresh() {
+  // TODO: Implement automatic today's saying refresh
+}
+
 type HomeProps = {
   todaySaying: Saying | null
 }
