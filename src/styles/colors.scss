@@ -3,11 +3,12 @@
 :root {
   // Colors
   --st-white: #fff;
+  --st-soft-white: #f8f8f8;
   --st-black: #333;
 
   // Domains
   --text-color: var(--st-black);
-  --foundation: var(--st-white);
+  --foundation: var(--st-soft-white);
 }
 
 @media (prefers-color-scheme: dark) {
