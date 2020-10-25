@@ -1,4 +1,4 @@
-import { currentDateString } from '@/modules/time'
+import { yyyyMMdd } from '@/modules/time'
 import style from '@/styles/Home.module.scss'
 import { Saying } from '@prisma/client'
 import { GetServerSideProps, NextPage } from 'next'
@@ -13,10 +13,10 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
   const [localTodaySaying, setLocalTodaySaying] = useState(todaySaying)
 
   useEffect(() => {
-    let lastDate = currentDateString()
+    let lastDate = yyyyMMdd()
 
     const interval = setInterval(async () => {
-      const currentDate = currentDateString()
+      const currentDate = yyyyMMdd()
 
       if (lastDate !== currentDate) {
         const res = await fetch('/api/today-saying')
@@ -45,6 +45,8 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
           </address>
         )}
       </div>
+
+      <p>PAYW</p>
     </div>
   )
 }

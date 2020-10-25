@@ -1,9 +1,9 @@
 import { prisma } from '@/modules/prisma'
-import { currentDateString } from '@/modules/time'
+import { yyyyMMdd } from '@/modules/time'
 import { NextApiRequest, NextApiResponse } from '@/types/next-extend'
 
 export async function getTodaySaying() {
-  const id = (new Date(currentDateString()).getTime() / 86_400_000) % 500
+  const id = (new Date(yyyyMMdd()).getTime() / 86_400_000) % 500
 
   const todaySaying = await prisma.saying.findOne({
     where: {
