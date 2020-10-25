@@ -1,8 +1,8 @@
 @use '@/styles/package' as *;
 
 .home {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
   min-height: calc(100vh - 7rem);
   width: 100%;
   padding: 5rem 0;
