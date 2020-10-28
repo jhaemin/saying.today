@@ -30,6 +30,25 @@
   font-size: 2.5em;
   font-weight: 500;
   line-height: 1.5;
+
+  .character {
+    @keyframes effect {
+      0% {
+        opacity: 0;
+        filter: blur(15px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px);
+      }
+    }
+
+    display: inline-block;
+    opacity: 0;
+    filter: blur(15px);
+    animation: effect 1s ease forwards;
+    will-change: opacity;
+  }
 }
 
 .author {
@@ -37,9 +56,19 @@
   font-size: 1.5em;
   font-weight: 600;
   text-align: left;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 1s ease, filter 1s ease;
+
+  &.visible {
+    filter: blur(0px);
+    opacity: 1;
+  }
 }
 
 .credit {
   margin-top: 7rem;
   color: #8c97a0;
+  width: 100%;
+  text-align: center;
 }

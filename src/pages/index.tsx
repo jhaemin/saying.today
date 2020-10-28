@@ -11,6 +11,7 @@ type HomeProps = {
 
 const Home: NextPage<HomeProps> = ({ todaySaying }) => {
   const [localTodaySaying, setLocalTodaySaying] = useState(todaySaying)
+  const [isParagraphLoaded, setIsParagraphLoaded] = useState(false)
 
   useEffect(() => {
     let lastDate = yyyyMMdd()
@@ -37,10 +38,33 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
     <div className={style.home}>
       <div className={style.saying}>
         <blockquote className={style.paragraph}>
-          {localTodaySaying?.paragraph}
+          {localTodaySaying?.paragraph
+            .split('')
+            .map((c) => (c === ' ' ? '&nbsp;' : c))
+            .map((c, i) => (
+              <span
+                key={i}
+                className={style.character}
+                style={{
+                  animationDelay: `${i * 80}ms`,
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: c,
+                }}
+                onAnimationEnd={() => {
+                  if (i === localTodaySaying.paragraph.length - 1) {
+                    setIsParagraphLoaded(true)
+                  }
+                }}
+              />
+            ))}
         </blockquote>
         {localTodaySaying?.author && (
-          <address className={style.author}>
+          <address
+            className={
+              style.author + (isParagraphLoaded ? ` ${style.visible}` : '')
+            }
+          >
             — {localTodaySaying?.author}
           </address>
         )}
