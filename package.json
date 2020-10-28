@@ -15,19 +15,19 @@
     "pm2:reboot": "npm ci && npm run generate && npm run build && npm run pm2:stop && npm run pm2:delete && npm run pm2:start"
   },
   "dependencies": {
-    "@prisma/client": "^2.9.0",
+    "@prisma/client": "^2.10.0",
     "date-fns": "^2.16.1",
-    "next": "9.5.5",
+    "next": "10.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-redux": "^7.2.2",
     "swr": "^0.3.6"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.9.0",
-    "@types/node": "^14.14.2",
-    "@types/react": "^16.9.53",
+    "@prisma/cli": "^2.10.0",
+    "@types/node": "^14.14.5",
+    "@types/react": "^16.9.54",
     "sass": "^1.27.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.5"
   }
 }
