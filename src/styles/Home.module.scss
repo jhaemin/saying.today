@@ -3,7 +3,7 @@
 .home {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 7rem);
+  min-height: 100vh;
   width: 100%;
   padding: 5rem 0;
   display: flex;
@@ -37,4 +37,9 @@
   font-size: 1.5em;
   font-weight: 600;
   text-align: left;
+}
+
+.credit {
+  margin-top: 7rem;
+  color: #8c97a0;
 }
