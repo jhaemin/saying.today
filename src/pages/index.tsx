@@ -46,7 +46,14 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
         )}
       </div>
 
-      <p>PAYW</p>
+      <a
+        href="https://payw.org"
+        className={style.credit}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        PAYW
+      </a>
     </div>
   )
 }
