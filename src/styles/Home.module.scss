@@ -20,6 +20,7 @@
   padding: 0 2rem;
   max-width: 35rem;
   margin: auto;
+  text-align: center;
 
   @include narrower-than(700px) {
     font-size: 0.8rem;
@@ -31,11 +32,17 @@
   font-weight: 500;
   line-height: 1.5;
 
+  .word {
+    white-space: nowrap;
+  }
+
   .character {
+    $blur-amount: 17px;
+
     @keyframes effect {
       0% {
         opacity: 0;
-        filter: blur(15px);
+        filter: blur($blur-amount);
       }
       100% {
         opacity: 1;
@@ -45,8 +52,8 @@
 
     display: inline-block;
     opacity: 0;
-    filter: blur(15px);
-    animation: effect 1s ease forwards;
+    filter: blur($blur-amount);
+    animation: effect 1.2s ease forwards;
     will-change: opacity;
   }
 }
@@ -55,10 +62,9 @@
   margin-top: 3rem;
   font-size: 1.5em;
   font-weight: 600;
-  text-align: left;
   opacity: 0;
-  filter: blur(10px);
-  transition: opacity 1s ease, filter 1s ease;
+  filter: blur(5px);
+  transition: opacity 1.5s ease, filter 1.5s ease;
 
   &.visible {
     filter: blur(0px);

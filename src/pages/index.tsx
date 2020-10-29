@@ -1,16 +1,17 @@
 import { yyyyMMdd } from '@/modules/time'
 import style from '@/styles/Home.module.scss'
 import { Saying } from '@prisma/client'
-import { GetServerSideProps, NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import { Fragment, useEffect, useState } from 'react'
 import { getTodaySaying } from './api/today-saying'
 
 type HomeProps = {
   todaySaying: Saying | null
 }
 
-const Home: NextPage<HomeProps> = ({ todaySaying }) => {
-  const [localTodaySaying, setLocalTodaySaying] = useState(todaySaying)
+const Home: NextPage<HomeProps> = ({
+  todaySaying,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isParagraphLoaded, setIsParagraphLoaded] = useState(false)
 
   useEffect(() => {
@@ -20,10 +21,7 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
       const currentDate = yyyyMMdd()
 
       if (lastDate !== currentDate) {
-        const res = await fetch('/api/today-saying')
-        const todaySaying = await res.json()
-
-        setLocalTodaySaying(todaySaying)
+        window.location.reload()
       }
 
       lastDate = currentDate
@@ -34,38 +32,45 @@ const Home: NextPage<HomeProps> = ({ todaySaying }) => {
     }
   }, [])
 
+  let i = 0
+  const delay = 150
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsParagraphLoaded(true)
+    }, (todaySaying?.paragraph.replaceAll(' ', '').length ?? 0) * delay + 1000)
+  }, [])
+
   return (
     <div className={style.home}>
       <div className={style.saying}>
         <blockquote className={style.paragraph}>
-          {localTodaySaying?.paragraph
-            .split('')
-            .map((c) => (c === ' ' ? '&nbsp;' : c))
-            .map((c, i) => (
-              <span
-                key={i}
-                className={style.character}
-                style={{
-                  animationDelay: `${i * 80}ms`,
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: c,
-                }}
-                onAnimationEnd={() => {
-                  if (i === localTodaySaying.paragraph.length - 1) {
-                    setIsParagraphLoaded(true)
-                  }
-                }}
-              />
-            ))}
+          {todaySaying?.paragraph.split(' ').map((w, index) => (
+            <Fragment key={w + index}>
+              <span className={style.word}>
+                {w.split('').map((c, index) => (
+                  <span
+                    key={c + index}
+                    className={style.character}
+                    style={{
+                      animationDelay: `${i++ * delay}ms`,
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: c,
+                    }}
+                  />
+                ))}
+              </span>{' '}
+            </Fragment>
+          ))}
         </blockquote>
-        {localTodaySaying?.author && (
+        {todaySaying?.author && (
           <address
             className={
               style.author + (isParagraphLoaded ? ` ${style.visible}` : '')
             }
           >
-            — {localTodaySaying?.author}
+            — {todaySaying?.author} —
           </address>
         )}
       </div>
@@ -86,6 +91,10 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const todaySaying = await getTodaySaying()
+
+  if (todaySaying) {
+    todaySaying.paragraph = todaySaying.paragraph + '.'
+  }
 
   return {
     props: {
