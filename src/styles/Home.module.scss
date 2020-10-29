@@ -64,9 +64,9 @@
   font-weight: 600;
   opacity: 0;
   filter: blur(5px);
-  transition: opacity 1.5s ease, filter 1.5s ease;
 
   &.visible {
+    transition: opacity 1.5s ease, filter 1.5s ease;
     filter: blur(0px);
     opacity: 1;
   }
