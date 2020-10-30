@@ -5,12 +5,12 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy:
+  SSH:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: ssh
+    - name: Run scripts in server
       uses: appleboy/ssh-action@master
       with:
         key: ${{ secrets.SSH_KEY }}
