@@ -5,18 +5,20 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Deploy
+    - name: ssh
       uses: appleboy/ssh-action@master
       with:
         key: ${{ secrets.SSH_KEY }}
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         script: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           cd ~/payw-org/saying.today/
           git pull
           npm run pm2:reboot
