@@ -33,7 +33,7 @@ const Home: NextPage<HomeProps> = ({
   }, [])
 
   let i = 0
-  const delay = 150
+  const delay = 3000 / (todaySaying?.paragraph.length ?? 1)
 
   useEffect(() => {
     setTimeout(() => {
