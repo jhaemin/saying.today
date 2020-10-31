@@ -1,6 +1,7 @@
 import { yyyyMMdd } from '@/modules/time'
 import style from '@/styles/Home.module.scss'
 import { Saying } from '@prisma/client'
+import classNames from 'classnames'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Fragment, useEffect, useState } from 'react'
 import { getTodaySaying } from './api/today-saying'
@@ -32,14 +33,7 @@ const Home: NextPage<HomeProps> = ({
     }
   }, [])
 
-  let i = 0
-  const delay = 3000 / (todaySaying?.paragraph.length ?? 1)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsParagraphLoaded(true)
-    }, (todaySaying?.paragraph.replaceAll(' ', '').length ?? 0) * delay + 1000)
-  }, [])
+  const delay = 230
 
   return (
     <div className={style.home}>
@@ -47,19 +41,18 @@ const Home: NextPage<HomeProps> = ({
         <blockquote className={style.paragraph}>
           {todaySaying?.paragraph.split(' ').map((w, index) => (
             <Fragment key={w + index}>
-              <span className={style.word}>
-                {w.split('').map((c, index) => (
-                  <span
-                    key={c + index}
-                    className={style.character}
-                    style={{
-                      animationDelay: `${i++ * delay}ms`,
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: c,
-                    }}
-                  />
-                ))}
+              <span
+                className={classNames(style.word, style.character)}
+                style={{
+                  animationDelay: `${index * delay + 300}ms`,
+                }}
+                onAnimationEnd={() => {
+                  if (index === todaySaying.paragraph.split(' ').length - 1) {
+                    setIsParagraphLoaded(true)
+                  }
+                }}
+              >
+                {w}
               </span>{' '}
             </Fragment>
           ))}
@@ -70,7 +63,7 @@ const Home: NextPage<HomeProps> = ({
               style.author + (isParagraphLoaded ? ` ${style.visible}` : '')
             }
           >
-            — {todaySaying?.author} —
+            - {todaySaying?.author} -
           </address>
         )}
       </div>
