@@ -81,7 +81,7 @@ const Home: NextPage<HomeProps> = ({
         target="_blank"
         rel="noreferrer noopener"
       >
-        PAYW
+        made by <span style={{ fontWeight: 700 }}>PAYW</span>
       </a>
     </div>
   )
