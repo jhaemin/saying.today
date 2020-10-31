@@ -3,17 +3,20 @@
 :root {
   // Colors
   --st-white: #fff;
-  --st-soft-white: #f8f8f8;
+  --st-soft-white: #f4f4f4;
   --st-black: #222;
+  --st-soft-black: #373737;
 
   // Domains
   --text-color: var(--st-black);
   --foundation: var(--st-soft-white);
+  --distinctive: var(--st-white);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: var(--st-white);
     --foundation: var(--st-black);
+    --distinctive: var(--st-soft-black);
   }
 }
