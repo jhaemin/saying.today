@@ -6,11 +6,13 @@
   --st-soft-white: #f4f4f4;
   --st-black: #222;
   --st-soft-black: #373737;
+  --st-universal-gray: #808080;
 
   // Domains
   --text-color: var(--st-black);
   --foundation: var(--st-soft-white);
   --distinctive: var(--st-white);
+  --gray: var(--st-universal-gray);
 }
 
 @media (prefers-color-scheme: dark) {
