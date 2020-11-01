@@ -85,10 +85,6 @@ export default Home
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const todaySaying = await getTodaySaying()
 
-  if (todaySaying) {
-    todaySaying.paragraph = todaySaying.paragraph + '.'
-  }
-
   return {
     props: {
       todaySaying,
