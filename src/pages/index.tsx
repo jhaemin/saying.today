@@ -55,6 +55,7 @@ const Home: NextPage<HomeProps> = ({
         id="capture"
         tabIndex={-1}
         style={{
+          display: 'none',
           fontFamily: 'Arita',
           fontWeight: 500,
           position: 'absolute',
@@ -139,6 +140,9 @@ const Home: NextPage<HomeProps> = ({
               style.menuBar,
               isAllSet ? 'visible' : 'hidden'
             )}
+            style={{
+              display: 'none',
+            }}
           >
             <button className={style.savePhoto} onClick={saveImage}>
               <i className={classNames('f7-icons')}>photo</i>
