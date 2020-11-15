@@ -1,5 +1,5 @@
 import { yyyyMMdd } from '@/modules/time'
-import style from '@/styles/Home.module.scss'
+import style from '@/styles/home.module.scss'
 import { Saying } from '@prisma/client'
 import classNames from 'classnames'
 import { toPng } from 'html-to-image'
