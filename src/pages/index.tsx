@@ -2,6 +2,8 @@ import { yyyyMMdd } from '@/modules/time'
 import style from '@/styles/home.module.scss'
 import { Saying } from '@prisma/client'
 import classNames from 'classnames'
+import Cookies from 'cookies'
+import { addYears } from 'date-fns'
 import { toPng } from 'html-to-image'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Fragment, useEffect, useState } from 'react'
@@ -170,7 +172,36 @@ const Home: NextPage<HomeProps> = ({
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
+  req,
+  res,
+  query,
+}) => {
+  if ('accessToken' in query || 'refreshToken' in query) {
+    const q = query as {
+      accessToken: string
+      refreshToken: string
+    }
+
+    const cookies = new Cookies(req, res)
+    const now = new Date()
+    const expires = addYears(now, 2)
+
+    cookies.set('accessToken', q.accessToken, {
+      path: '/',
+      httpOnly: true,
+      expires,
+    })
+
+    cookies.set('refreshToken', q.refreshToken, {
+      path: '/',
+      httpOnly: true,
+      expires,
+    })
+
+    res.writeHead(302, { Location: '/' }).end()
+  }
+
   const todaySaying = await getTodaySaying()
 
   return {
