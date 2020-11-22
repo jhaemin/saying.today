@@ -6,6 +6,10 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+        />
         <title>1일 1명언 - 쎄잉 (Saying)</title>
         <meta name="apple-mobile-web-app-title" content="쎄잉" />
         <meta name="application-name" content="쎄잉" />
