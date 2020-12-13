@@ -1,22 +1,24 @@
 import { yyyyMMdd } from '@/modules/time'
-import style from '@/styles/home.module.scss'
 import { Saying } from '@prisma/client'
 import classNames from 'classnames'
 import Cookies from 'cookies'
 import { addYears } from 'date-fns'
-import { toPng } from 'html-to-image'
+import domtoimage from 'dom-to-image'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Fragment, useEffect, useState } from 'react'
 import { getTodaySaying } from './api/today-saying'
+import style from './index.module.scss'
 
 type HomeProps = {
   todaySaying: Saying | null
 }
 
-const delay = 230
-
 function saveImage() {
-  toPng(document.getElementById('capture') as HTMLElement).then((dataURL) => {
+  const captureDOM = document.getElementById('capture') as HTMLElement
+
+  captureDOM.style.visibility = 'visible'
+
+  domtoimage.toPng(captureDOM).then((dataURL) => {
     const image = dataURL.replace('image/png', 'image/octet-stream')
     const link = document.createElement('a')
     link.setAttribute('download', '쎄잉.png')
@@ -24,6 +26,7 @@ function saveImage() {
     document.body.appendChild(link)
     link.click()
     link.remove()
+    captureDOM.style.visibility = 'hidden'
   })
 }
 
@@ -51,21 +54,23 @@ const Home: NextPage<HomeProps> = ({
     }
   }, [])
 
+  let previousDelay = 0
+
   return (
     <>
       <div
         id="capture"
         tabIndex={-1}
         style={{
-          display: 'none',
           fontFamily: 'Arita',
           fontWeight: 500,
-          position: 'absolute',
+          position: 'fixed',
           top: 0,
           left: 0,
-          width: '700px',
+          visibility: 'hidden',
+          width: '1200px',
           height: 'auto',
-          padding: '80px 100px 30px',
+          padding: '136px 170px 51px',
           textAlign: 'center',
           backgroundColor: 'var(--foundation)',
           color: 'var(--text-color)',
@@ -75,7 +80,7 @@ const Home: NextPage<HomeProps> = ({
       >
         <div
           style={{
-            fontSize: '45px',
+            fontSize: '76px',
             lineHeight: 1.4,
           }}
         >
@@ -83,9 +88,9 @@ const Home: NextPage<HomeProps> = ({
         </div>
         <div
           style={{
-            fontSize: '30px',
+            fontSize: '50px',
             fontWeight: 600,
-            marginTop: '40px',
+            marginTop: '68px',
           }}
         >
           - {todaySaying?.author} -
@@ -94,9 +99,9 @@ const Home: NextPage<HomeProps> = ({
           style={{
             fontFamily:
               '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-            fontSize: '17px',
+            fontSize: '34px',
             fontWeight: 400,
-            marginTop: '80px',
+            marginTop: '136px',
             color: 'var(--gray)',
           }}
         >
@@ -106,23 +111,31 @@ const Home: NextPage<HomeProps> = ({
       <div className={style.home}>
         <div className={style.saying}>
           <blockquote className={style.paragraph}>
-            {todaySaying?.paragraph.split(' ').map((w, index) => (
-              <Fragment key={w + index}>
-                <span
-                  className={classNames(style.word, style.character)}
-                  style={{
-                    animationDelay: `${index * delay + 300}ms`,
-                  }}
-                  onAnimationEnd={() => {
-                    if (index === todaySaying.paragraph.split(' ').length - 1) {
-                      setIsParagraphLoaded(true)
-                    }
-                  }}
-                >
-                  {w}
-                </span>{' '}
-              </Fragment>
-            ))}
+            {todaySaying?.paragraph.split(' ').map((w, index) => {
+              const currentDelay = previousDelay + 600 / (index ** 0.5 + 1)
+              previousDelay = currentDelay
+
+              return (
+                <Fragment key={w + index}>
+                  <span
+                    className={classNames(style.word, style.character)}
+                    style={{
+                      animationDelay: `${currentDelay}ms`,
+                    }}
+                    onAnimationEnd={() => {
+                      if (
+                        index ===
+                        todaySaying.paragraph.split(' ').length - 1
+                      ) {
+                        setIsParagraphLoaded(true)
+                      }
+                    }}
+                  >
+                    {w}
+                  </span>{' '}
+                </Fragment>
+              )
+            })}
           </blockquote>
           {todaySaying?.author && (
             <address
@@ -142,9 +155,6 @@ const Home: NextPage<HomeProps> = ({
               style.menuBar,
               isAllSet ? 'visible' : 'hidden'
             )}
-            style={{
-              display: 'none',
-            }}
           >
             <button className={style.savePhoto} onClick={saveImage}>
               <i className={classNames('f7-icons')}>photo</i>
