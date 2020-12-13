@@ -13,7 +13,7 @@
 }
 
 .menuBar {
-  margin-top: 5rem;
+  margin-top: 4rem;
   display: flex;
   flex-direction: row;
 
@@ -82,20 +82,20 @@
     opacity: 0;
     filter: blur($blur-amount);
     animation: effect 1.2s ease forwards;
-    will-change: opacity;
+    will-change: opacity, filter;
   }
 }
 
 .author {
   font-family: Arita;
-  font-size: 1.5em;
+  font-size: 1.7em;
   font-weight: 600;
-  margin-top: 3rem;
+  margin-top: 2rem;
   opacity: 0;
   filter: blur(5px);
 
   &.visible {
-    $transition-time: 1.5s;
+    $transition-time: 1s;
     transition: opacity $transition-time ease, filter $transition-time ease;
     filter: blur(0px);
     opacity: 1;
