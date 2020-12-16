@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from '@/types/next-extend'
 export async function getTodaySaying() {
   const id = (new Date(yyyyMMdd()).getTime() / 86_400_000) % 500
 
-  const todaySaying = await prisma.saying.findOne({
+  const todaySaying = await prisma.saying.findUnique({
     where: {
       id,
     },
