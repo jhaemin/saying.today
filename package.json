@@ -15,7 +15,7 @@
     "pm2:reboot": "npm ci && npm run build && npm run pm2:stop && npm run pm2:delete && npm run pm2:start"
   },
   "dependencies": {
-    "@payw/auth": "^1.0.0-beta.1",
+    "@payw/auth": "^1.0.0-beta.3",
     "@prisma/client": "^2.13.0",
     "classnames": "^2.2.6",
     "cookies": "^0.8.0",
