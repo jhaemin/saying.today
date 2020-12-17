@@ -1,8 +1,7 @@
 import { yyyyMMdd } from '@/modules/time'
+import { PAYWAuth } from '@payw/auth'
 import { Saying } from '@prisma/client'
 import classNames from 'classnames'
-import Cookies from 'cookies'
-import { addYears } from 'date-fns'
 import domtoimage from 'dom-to-image'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Fragment, useEffect, useState } from 'react'
@@ -187,29 +186,22 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
   res,
   query,
 }) => {
-  if ('accessToken' in query || 'refreshToken' in query) {
-    const q = query as {
-      accessToken: string
-      refreshToken: string
-    }
+  const paywAuth = PAYWAuth(req, res)
 
-    const cookies = new Cookies(req, res)
-    const now = new Date()
-    const expires = addYears(now, 2)
+  const result = await paywAuth.verify()
 
-    cookies.set('accessToken', q.accessToken, {
-      path: '/',
-      httpOnly: true,
-      expires,
-    })
+  if (result) {
+    console.log(result.userID)
+  }
 
-    cookies.set('refreshToken', q.refreshToken, {
-      path: '/',
-      httpOnly: true,
-      expires,
-    })
+  if ('accessToken' in query && 'refreshToken' in query) {
+    const paywAuth = PAYWAuth(req, res)
+    const accessToken = query.accessToken as string
+    const refreshToken = query.refreshToken as string
 
-    res.writeHead(302, { Location: '/' }).end()
+    paywAuth.setTokens({ accessToken, refreshToken })
+
+    paywAuth.redirect('/')
   }
 
   const todaySaying = await getTodaySaying()
