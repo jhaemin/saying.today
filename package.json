@@ -15,8 +15,8 @@
     "pm2:reboot": "npm ci && npm run build && npm run pm2:stop && npm run pm2:delete && npm run pm2:start"
   },
   "dependencies": {
-    "@payw/auth": "^1.0.0-beta.3",
-    "@prisma/client": "^2.13.0",
+    "@payw/auth": "^1.0.0-beta.4",
+    "@prisma/client": "^2.13.1",
     "classnames": "^2.2.6",
     "cookies": "^0.8.0",
     "date-fns": "^2.16.1",
@@ -30,7 +30,7 @@
     "swr": "^0.3.9"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.13.0",
+    "@prisma/cli": "^2.13.1",
     "@types/classnames": "^2.2.11",
     "@types/cookies": "^0.7.5",
     "@types/dom-to-image": "^2.6.2",
