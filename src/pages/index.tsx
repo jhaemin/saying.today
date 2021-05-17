@@ -6,7 +6,7 @@ import domtoimage from 'dom-to-image'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Fragment, useEffect, useState } from 'react'
 import { getTodaySaying } from './api/today-saying'
-import style from './index.module.scss'
+import $ from './index.module.scss'
 
 type HomeProps = {
   todaySaying: Saying | null
@@ -69,7 +69,7 @@ const Home: NextPage<HomeProps> = ({
           visibility: 'hidden',
           width: '1200px',
           height: 'auto',
-          padding: '136px 170px 51px',
+          padding: '100px 100px 30px',
           textAlign: 'center',
           backgroundColor: 'var(--foundation)',
           color: 'var(--text-color)',
@@ -107,9 +107,12 @@ const Home: NextPage<HomeProps> = ({
           www.saying.today
         </div>
       </div>
-      <div className={style.home}>
-        <div className={style.saying}>
-          <blockquote className={style.paragraph}>
+      <div className={$['home']}>
+        {/* <nav className={$['nav']}>
+          <a href={getLoginURL('saying.today')}>로그인</a>
+        </nav> */}
+        <div className={$['saying']}>
+          <blockquote className={$['paragraph']}>
             {todaySaying?.paragraph.split(' ').map((w, index) => {
               const currentDelay = previousDelay + 600 / (index ** 0.5 + 1)
               previousDelay = currentDelay
@@ -117,7 +120,7 @@ const Home: NextPage<HomeProps> = ({
               return (
                 <Fragment key={w + index}>
                   <span
-                    className={classNames(style.word, style.character)}
+                    className={classNames($['word'], $['character'])}
                     style={{
                       animationDelay: `${currentDelay}ms`,
                     }}
@@ -139,7 +142,7 @@ const Home: NextPage<HomeProps> = ({
           {todaySaying?.author && (
             <address
               className={
-                style.author + (isParagraphLoaded ? ` ${style.visible}` : '')
+                $['author'] + (isParagraphLoaded ? ` ${$['visible']}` : '')
               }
               onTransitionEnd={() => {
                 setIsAllSet(true)
@@ -151,11 +154,11 @@ const Home: NextPage<HomeProps> = ({
 
           <div
             className={classNames(
-              style.menuBar,
+              $['menu-bar'],
               isAllSet ? 'visible' : 'hidden'
             )}
           >
-            <button className={style.savePhoto} onClick={saveImage}>
+            <button className={$['save-photo']} onClick={saveImage}>
               <i className={classNames('f7-icons')}>photo</i>
               이미지로 저장
             </button>
@@ -168,7 +171,7 @@ const Home: NextPage<HomeProps> = ({
 
         <a
           href="https://payw.org"
-          className={classNames(style.credit, isAllSet ? 'visible' : 'hidden')}
+          className={classNames($['credit'], isAllSet ? 'visible' : 'hidden')}
           target="_blank"
           rel="noreferrer noopener"
         >
@@ -199,7 +202,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
     const accessToken = query.accessToken as string
     const refreshToken = query.refreshToken as string
 
-    paywAuth.setTokens({ accessToken, refreshToken })
+    paywAuth.storeTokens({ accessToken, refreshToken })
 
     paywAuth.redirect('/')
   }
