@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model Saying {
-  id        Int     @id @default(autoincrement())
-  paragraph String
-  author    String?
+  id        Int     @id @default(autoincrement()) @db.UnsignedInt
+  paragraph String  @db.Text
+  author    String? @db.VarChar(200)
 }
