@@ -1,5 +1,4 @@
 import { yyyyMMdd } from '@/modules/time'
-import { PAYWAuth } from '@payw/auth'
 import { Saying } from '@prisma/client'
 import classNames from 'classnames'
 import domtoimage from 'dom-to-image'
@@ -168,45 +167,25 @@ const Home: NextPage<HomeProps> = ({
           </button> */}
           </div>
         </div>
-
+      </div>
+      {/* <CommentsSection /> */}
+      <footer className={$['footer']}>
         <a
-          href="https://payw.org"
+          href="https://github.com/payw-org/saying.today"
           className={classNames($['credit'], isAllSet ? 'visible' : 'hidden')}
           target="_blank"
           rel="noreferrer noopener"
         >
-          made by <span style={{ fontWeight: 700 }}>PAYW</span>
+          <i className="f7-icons">logo_github</i> GitHub
         </a>
-      </div>
+      </footer>
     </>
   )
 }
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
-  req,
-  res,
-  query,
-}) => {
-  const paywAuth = PAYWAuth(req, res)
-
-  const result = await paywAuth.verify()
-
-  if (result) {
-    console.log(result.userID)
-  }
-
-  if ('accessToken' in query && 'refreshToken' in query) {
-    const paywAuth = PAYWAuth(req, res)
-    const accessToken = query.accessToken as string
-    const refreshToken = query.refreshToken as string
-
-    paywAuth.storeTokens({ accessToken, refreshToken })
-
-    paywAuth.redirect('/')
-  }
-
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const todaySaying = await getTodaySaying()
 
   return {

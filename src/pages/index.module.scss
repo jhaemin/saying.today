@@ -3,7 +3,7 @@
 .home {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: calc(100% - 100px);
   width: 100%;
   display: flex;
   align-items: center;
@@ -113,4 +113,11 @@
   color: #8c97a0;
   text-align: center;
   margin-bottom: 2rem;
+}
+
+.footer {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
