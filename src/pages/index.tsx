@@ -129,6 +129,10 @@ const Home: NextPage<HomeProps> = ({
                         todaySaying.paragraph.split(' ').length - 1
                       ) {
                         setIsParagraphLoaded(true)
+
+                        if (!todaySaying.author) {
+                          setIsAllSet(true)
+                        }
                       }
                     }}
                   >
